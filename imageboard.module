@@ -1,0 +1,39 @@
+<?php
+
+include_once('imageboard.features.inc');
+
+/**
+* Implementation of hook_init().
+*/
+function imageboard_init() {
+  drupal_add_css(drupal_get_path('module', 'imageboard') .'/imageboard.css');
+}
+
+/**
+* Implementation of hook_help().
+*/
+function imageboard_help($path) {
+  // Central help page content.
+  if ($path == 'admin/help#imageboard') {
+    $help = '<h3>'. t('Imageboard') .'</h3>';
+    $help .= '<p>'. t("The imageboard lets your team post photos which will show up in a gallery.") .'</p>';
+    $help .= '<p>'. t("To add photos, navigate to the imageboard and click the __Add image__ button.  Then click __Save__.") .'</p>';
+    return $help;
+  }
+
+  // Contextual help content.
+  if (context_isset('context', 'spaces-feature-imageboard')) {
+    if ($path == 'node/add/image') {
+      $help = '';
+      $help .= '<h3>'. t('Image') .'</h3>';
+      $help .= '<p>'. t("Post a photo in this group. The photo will be shared will all team members in the Imageboard gallery.") .'</p>';
+      return $help;
+    }
+    else {
+      $help = '<h3>'. t('Image') .'</h3>';
+      $help .= '<p>'. t("The imageboard lets you post photos in a group.") .'</p>';
+      return $help;
+    }
+  }
+}
+
